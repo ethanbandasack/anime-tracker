@@ -1,0 +1,538 @@
+{
+  "Lundi": [
+    {
+      "time": "12h30",
+      "display": "The Summer Hikaru Died",
+      "title": "Hikari ga Shinda Natsu",
+      "plateform": "Netflix",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/lundi1"
+    },
+    {
+      "time": "15h00",
+      "display": "See You Tomorrow at the Food Court",
+      "title": "Food Court de, Mata Ashita.",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/lundi2"
+    },
+    {
+      "time": "17h00",
+      "display": "Summer Pockets",
+      "title": "Summer Pockets",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/lundi3"
+    },
+    {
+      "time": "18h30",
+      "display": "Grand Blue",
+      "title": "Grand Blue Dreaming Season 2",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/lundi4"
+    },
+    {
+      "time": "18h30",
+      "display": "WataNare",
+      "title": "Watashi ga Koibito ni Nareru Wake Naijan, Murimuri! (※Muri ja Nakatta!?)",
+      "plateform": "YouTube",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/lundi5"
+    }
+  ],
+  "Mardi": [
+    {
+      "time": "15h30",
+      "display": "Rent-a-Girlfriend",
+      "title": "Kanojo, Okarishimasu 4th Season",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/mardi1"
+    },
+    {
+      "time": "16h30",
+      "display": "A Couple of Cuckoos",
+      "title": "Kakkou no Iinazuke Season 2",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/mardi2"
+    },
+    {
+      "time": "17h00",
+      "display": "Detectives These Days Are Crazy!",
+      "title": "Mattaku Saikin no Tantei to Kitara",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mardi3"
+    },
+    {
+      "time": "17h15",
+      "display": "Necronomico",
+      "title": "Necronomico no Cosmic Horror Show",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mardi4"
+    },
+    {
+      "time": "20h30",
+      "display": "Turkey!",
+      "title": "Turkey!",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mardi5"
+    }
+  ],
+  "Mercredi": [
+    {
+      "time": "14h00",
+      "display": "Clevatess",
+      "title": "Clevatess: Majuu no Ou to Akago to Kabane no Yuusha",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mercredi1"
+    },
+    {
+      "time": "14h30",
+      "display": "The Rising of the Shield Hero",
+      "title": "Tate no Yuusha no Nariagari Season 4",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/mercredi2"
+    },
+    {
+      "time": "16h30",
+      "display": "Isekai Vending Machine",
+      "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd Season",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/mercredi3"
+    },
+    {
+      "time": "18h00",
+      "display": "New PANTY & STOCKING with GARTERBELT",
+      "title": "New PANTY & STOCKING with GARTERBELT",
+      "plateform": "Amazon Prime",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/mercredi4"
+    },
+    {
+      "time": "18h30",
+      "display": "I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability Season 2",
+      "title": "Tensei Shitara Dai Nana Ouji Dattanode, Kimamani Majutsu wo Kiwamemasu 2nd Season",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/mercredi5"
+    },
+    {
+      "time": "19h00",
+      "display": "Mikadono Sisters",
+      "title": "Mikadono Sanshimai wa Angai, Choroi.",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mercredi6"
+    },
+    {
+      "time": "19h25",
+      "display": "Onmyo Kaiten",
+      "title": "Onmyo Kaiten Re:verse",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mercredi7"
+    },
+    {
+      "time": "20h00",
+      "display": "New Saga",
+      "title": "Tsuyokute New Saga",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/mercredi8"
+    }
+  ],
+  "Jeudi": [
+    {
+      "time": "16h00",
+      "display": "Dr. Stone",
+      "title": "Dr.STONE SCIENCE FUTURE Part 2",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/jeudi1"
+    },
+    {
+      "time": "16h30",
+      "display": "Welcome to the Outcast's Restaurant!",
+      "title": "Tsuihousha Shokudou e Youkoso!",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/jeudi2"
+    },
+    {
+      "time": "18h00",
+      "display": "DAN DA DAN",
+      "title": "Dandadan 2nd Season",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/jeudi3"
+    },
+    {
+      "time": "18h30",
+      "display": "Solo Camping for Two",
+      "title": "Futari Solo Camp",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/jeudi4"
+    },
+    {
+      "time": "19h30",
+      "display": "KAMITSUBAKI CITY UNDER CONSTRUCTION",
+      "title": "Kamitsubaki-shi Kensetsuchuu.",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/jeudi5"
+    },
+    {
+      "time": "20h00",
+      "display": "Hell Teacher: Jigoku Sensei Nube (2025)",
+      "title": "Jigoku Sensei Nube (2025)",
+      "plateform": "YouTube",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/jeudi6"
+    },
+    {
+      "time": "21h00",
+      "display": "The Water Magician",
+      "title": "Mizu Zokusei no Mahou Tsukai",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/jeudi7"
+    }
+  ],
+  "Vendredi": [
+    {
+      "time": "16h00",
+      "display": "A Bouquet for an Ugly Girl",
+      "title": "Busu ni Hanataba wo.",
+      "plateform": "ADN",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/vendredi1"
+    },
+    {
+      "time": "17h00",
+      "display": "Sword of the Demon Hunter: Kijin Gentosho",
+      "title": "Kijin Gentoushou",
+      "plateform": "ADN",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/vendredi2"
+    },
+    {
+      "time": "17h15",
+      "display": "Takopi's Original Sin",
+      "title": "Takopii no Genzai",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/vendredi3"
+    },
+    {
+      "time": "17h30",
+      "display": "Tougen Anki",
+      "title": "Tougen Anki",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/vendredi4"
+    },
+    {
+      "time": "18h00",
+      "display": "Call of the Night",
+      "title": "Yofukashi no Uta Season 2",
+      "plateform": "ADN",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/vendredi5"
+    },
+    {
+      "time": "18h15",
+      "display": "Watari-kun's ****** is About to Collapse",
+      "title": "Watari-kun no xx ga Houkai Sunzen",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/vendredi6"
+    },
+    {
+      "time": "18h30",
+      "display": "Silent Witch",
+      "title": "Silent Witch: Chinmoku no Majo no Kakushigoto",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/vendredi7"
+    },
+    {
+      "time": "19h00",
+      "display": "Arknights",
+      "title": "Arknights: Enshin Shomei",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/vendredi8"
+    },
+    {
+      "time": "19h30",
+      "display": "Betrothed to My Sister's Ex",
+      "title": "Zutaboro Reijou wa Ane no Moto Konyakusha ni Dekiai Sareru",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/vendredi9"
+    }
+  ],
+  "Samedi": [
+    {
+      "time": "05h00",
+      "display": "Lord of Misteries",
+      "title": "Guimi Zhi Zhu",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi1"
+    },
+    {
+      "time": "12h00",
+      "display": "YAIBA: Samurai Legend",
+      "title": "Shin Samurai-den YAIBA",
+      "plateform": "ADN",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/samedi2"
+    },
+    {
+      "time": "15h15",
+      "display": "Anne Shirley",
+      "title": "Anne Shirley",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/samedi3"
+    },
+    {
+      "time": "16h30",
+      "display": "Fermat Kitchen",
+      "title": "Fermat no Ryouri",
+      "plateform": "ADN",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi4"
+    },
+    {
+      "time": "17h00",
+      "display": "The Shy Hero and the Assassin Princesses",
+      "title": "Kizetsu Yuusha to Ansatsu Hime",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi5"
+    },
+    {
+      "time": "17h30",
+      "display": "Scooped Up by an S-Rank Adventurer!",
+      "title": "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi6"
+    },
+    {
+      "time": "17h30",
+      "display": "Bad Girl",
+      "title": "Bad Girl",
+      "plateform": "ADN",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi7"
+    },
+    {
+      "time": "18h00",
+      "display": "Rascal Does Not Dream of Santa Claus",
+      "title": "Seishun Buta Yarou wa Santa Claus no Yume wo Minai",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/samedi8"
+    },
+    {
+      "time": "18h30",
+      "display": "My Dress-Up Darling",
+      "title": "Sono Bisque Doll wa Koi wo Suru Season 2",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": false,
+      "link": "https://example.com/samedi9"
+    },
+    {
+      "time": "19h00",
+      "display": "Private Tutor to the Duke's Daughter",
+      "title": "Koujo Denka no Katei Kyoushi",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi10"
+    },
+    {
+      "time": "20h00",
+      "display": "With You and the Rain",
+      "title": "Ame to Kimi to",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/samedi11"
+    }
+  ],
+  "Dimanche": [
+    {
+      "time": "00h00",
+      "display": "Bloom",
+      "title": "Kaoru Hana wa Rin to Saku",
+      "plateform": "Netflix",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche1"
+    },
+    {
+      "time": "02h30",
+      "display": "To Be Hero X",
+      "title": " Tu Bian Yingxiong X",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/dimanche2"
+    },
+    {
+      "time": "10h30",
+      "display": "Witch Watch",
+      "title": "Witch Watch",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/dimanche3"
+    },
+    {
+      "time": "11h00",
+      "display": "Toilet-Bound Hanako-kun",
+      "title": "Jibaku Shounen Hanako-kun 2 Part 2",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": false,
+      "link": "https://example.com/dimanche4"
+    },
+    {
+      "time": "15h15",
+      "display": "Dekin no Mogura",
+      "title": "Dekin no Mogura",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche5"
+    },
+    {
+      "time": "15h30",
+      "display": "Ruri Rocks",
+      "title": "Ruri no Houseki",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche6"
+    },
+    {
+      "time": "15h45",
+      "display": "Apocalypse Bringer Mynoghra",
+      "title": "Isekai Mokushiroku Mynoghra: Hametsu no Bunmei de Hajimeru Sekai Seifuku",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche7"
+    },
+    {
+      "time": "16h15",
+      "display": "Nyaight of the Living Cat",
+      "title": "Nyaight of the Living Cat",
+      "plateform": "Crunchyroll",
+      "viewing": false,
+      "new": true,
+      "link": "https://example.com/dimanche8"
+    },
+    {
+      "time": "16h45",
+      "display": "GaCen Girl",
+      "title": "GaCen Shoujo to Ibunka Kouryuu",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche9"
+    },
+    {
+      "time": "17h00",
+      "display": "Gachiakuta",
+      "title": "Gachiakuta",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche10"
+    },
+    {
+      "time": "17h30",
+      "display": "Uglymug, Epicfighter",
+      "title": "Busamen Gachi Fighter",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche11"
+    },
+    {
+      "time": "17h30",
+      "display": "CITY THE ANIMATION",
+      "title": "CITY THE ANIMATION",
+      "plateform": "Amazon Prime",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche12"
+    },
+    {
+      "time": "18h30",
+      "display": "Hotel Inhumans",
+      "title": "Hotel Inhumans",
+      "plateform": "Crunchyroll",
+      "viewing": true,
+      "new": true,
+      "link": "https://example.com/dimanche13"
+    }
+  ]
+}

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Tracker</title>
+  <style>
+    /* Unified hour-dot component */
+    .hour-dot-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      height: 1.6em;
+    }
+    .hour-dot-wrap .time {
+      font-weight: bold;
+      color: inherit;
+      margin: 0;
+      padding: 0;
+      height: 1.6em;
+      line-height: 1.6em;
+      display: flex;
+      align-items: center;
+    }
+    .hour-dot-wrap .pf-dot {
+      width: 0.8em;
+      height: 0.8em;
+      border-radius: 50%;
+      background: #fff;
+      outline: none;
+      box-shadow:
+        0 0 4px 1px #fff,
+        0 0 6px 2px var(--pf-color, #ccc), /* external color glow */
+        0 0 4px 2px var(--pf-color, #ccc) inset, /* internal color glow */
+        0 0 2px rgba(0,0,0,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pf-crunchyroll { --pf-color: #f47521; }
+    .pf-adn { --pf-color: #00c9ff; }
+    .pf-netflix { --pf-color: #111; }
+    .pf-amazonprime { --pf-color: #1399ff; }
+    .pf-youtube { --pf-color: #ff0000; }
+    .pf-default { --pf-color: #ccc; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0 16px;
+      padding: 0;
+      background: #f8f8fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      text-align: center;
+      margin: 1rem 0;
+    }
+    .container {
+      column-width: 260px;
+      column-gap: 1.5rem;
+      padding: 2rem;
+      max-width: 2500px;
+      width: 90%;
+      /* Dynamic columns: number adapts to available width */
+    }
+    .day {
+      display: block;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-sizing: border-box;
+      break-inside: avoid-column;
+      width: 100%;
+    }
+    .day-current {
+      background: #e0f7fa;
+      border: 2px solid #00bcd4;
+      box-shadow: 0 4px 16px rgba(0,188,212,0.15);
+      position: relative;
+    }
+    @media (max-width: 900px) {
+      .container {
+        column-width: 220px;
+        column-gap: 1rem;
+        padding: 1rem;
+      }
+      .day {
+        width: 100%;
+      }
+    }
+    @media (max-width: 600px) {
+      .container {
+        column-width: 100%;
+        column-gap: 0;
+        padding: 0.5rem;
+      }
+      .day {
+        width: 100%;
+        padding: 0.5rem;
+      }
+    }
+    .day {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1rem;
+      min-width: 0;
+      /* Height is determined by content, no grid, no break-inside */
+    }
+    .day h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #3a3a4a;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 4px;
+      background: #f2f2f7;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+    }
+    .not-viewing {
+      background: #777 !important;
+      color: #eee !important;
+    }
+    .not-viewing .anime-name {
+      color: #eee !important;
+    }
+    .not-new-title {
+      font-style: italic;
+    }
+    .time {
+      font-weight: bold;
+      color: inherit;
+      margin-bottom: 2px;
+    }
+    .anime-name {
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .anime-name .anime-display {
+      display: inline;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .anime-name .anime-full {
+      display: none;
+      white-space: normal;
+      word-break: break-word;
+    }
+    li:hover .anime-name .anime-display {
+      display: none;
+    }
+    li:hover .anime-name .anime-full {
+      display: inline;
+    }
+    .anime-name:hover .anime-display {
+      display: none;
+    }
+    .anime-name:hover .anime-full {
+      display: inline;
+    }
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+        padding: 1rem;
+        max-width: 100vw;
+      }
+      .day {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Anime Tracker</h1>
+  <div style="display:flex; align-items:center; gap:1em; margin-bottom:0.5em;">
+    <div id="total-viewing" style="font-size:1em; color:#00bcd4;"></div>
+    <button id="reset-viewing" style="font-size:0.95em; padding:0.2em 0.7em; border-radius:4px; border:1px solid #00bcd4; background:#e0f7fa; color:#00bcd4; cursor:pointer;">Reset</button>
+  </div>
+  <div class="container" id="schedule"></div>
+  <script>
+    // Inline editable schedule data
+    const scheduleData = {
+      "Lundi": [
+        {
+          "time": "12h30",
+          "display": "The Summer Hikaru Died",
+          "title": "Hikari ga Shinda Natsu",
+          "plateform": "Netflix",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "15h00",
+          "display": "See You Tomorrow at the Food Court",
+          "title": "Food Court de, Mata Ashita.",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h00",
+          "display": "Summer Pockets",
+          "title": "Summer Pockets",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "18h30",
+          "display": "Grand Blue",
+          "title": "Grand Blue Dreaming Season 2",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "18h30",
+          "display": "WataNare",
+          "title": "Watashi ga Koibito ni Nareru Wake Naijan, Murimuri! (※Muri ja Nakatta!?)",
+          "plateform": "YouTube",
+          "viewing": true,
+          "new": true
+        }
+      ],
+      "Mardi": [
+        {
+          "time": "15h30",
+          "display": "Rent-a-Girlfriend",
+          "title": "Kanojo, Okarishimasu 4th Season",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "16h30",
+          "display": "A Couple of Cuckoos",
+          "title": "Kakkou no Iinazuke Season 2",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "17h00",
+          "display": "Detectives These Days Are Crazy!",
+          "title": "Mattaku Saikin no Tantei to Kitara",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h15",
+          "display": "Necronomico",
+          "title": "Necronomico no Cosmic Horror Show",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "20h30",
+          "display": "Turkey!",
+          "title": "Turkey!",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        }
+      ],
+      "Mercredi": [
+        {
+          "time": "14h00",
+          "display": "Clevatess",
+          "title": "Clevatess: Majuu no Ou to Akago to Kabane no Yuusha",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "14h30",
+          "display": "The Rising of the Shield Hero",
+          "title": "Tate no Yuusha no Nariagari Season 4",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "16h30",
+          "display": "Isekai Vending Machine",
+          "title": "Jidou Hanbaiki ni Umarekawatta Ore wa Meikyuu wo Samayou 2nd Season",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "18h00",
+          "display": "New PANTY & STOCKING with GARTERBELT",
+          "title": "New PANTY & STOCKING with GARTERBELT",
+          "plateform": "Amazon Prime",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "18h30",
+          "display": "I Was Reincarnated as the 7th Prince so I Can Take My Time Perfecting My Magical Ability Season 2",
+          "title": "Tensei Shitara Dai Nana Ouji Dattanode, Kimamani Majutsu wo Kiwamemasu 2nd Season",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "19h00",
+          "display": "Mikadono Sisters",
+          "title": "Mikadono Sanshimai wa Angai, Choroi.",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "19h25",
+          "display": "Onmyo Kaiten",
+          "title": "Onmyo Kaiten Re:verse",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "20h00",
+          "display": "New Saga",
+          "title": "Tsuyokute New Saga",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        }
+      ],
+      "Jeudi": [
+        {
+          "time": "16h00",
+          "display": "Dr. Stone",
+          "title": "Dr.STONE SCIENCE FUTURE Part 2",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "16h30",
+          "display": "Welcome to the Outcast's Restaurant!",
+          "title": "Tsuihousha Shokudou e Youkoso!",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "18h00",
+          "display": "DAN DA DAN",
+          "title": "Dandadan 2nd Season",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "18h30",
+          "display": "Solo Camping for Two",
+          "title": "Futari Solo Camp",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "19h30",
+          "display": "KAMITSUBAKI CITY UNDER CONSTRUCTION",
+          "title": "Kamitsubaki-shi Kensetsuchuu.",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "20h00",
+          "display": "Hell Teacher: Jigoku Sensei Nube (2025)",
+          "title": "Jigoku Sensei Nube (2025)",
+          "plateform": "YouTube",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "21h00",
+          "display": "The Water Magician",
+          "title": "Mizu Zokusei no Mahou Tsukai",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        }
+      ],
+      "Vendredi": [
+        {
+          "time": "16h00",
+          "display": "A Bouquet for an Ugly Girl",
+          "title": "Busu ni Hanataba wo.",
+          "plateform": "ADN",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h00",
+          "display": "Sword of the Demon Hunter: Kijin Gentosho",
+          "title": "Kijin Gentoushou",
+          "plateform": "ADN",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "17h15",
+          "display": "Takopi's Original Sin",
+          "title": "Takopii no Genzai",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "17h30",
+          "display": "Tougen Anki",
+          "title": "Tougen Anki",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "18h00",
+          "display": "Call of the Night",
+          "title": "Yofukashi no Uta Season 2",
+          "plateform": "ADN",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "18h15",
+          "display": "Watari-kun's ****** is About to Collapse",
+          "title": "Watari-kun no xx ga Houkai Sunzen",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "18h30",
+          "display": "Silent Witch",
+          "title": "Silent Witch: Chinmoku no Majo no Kakushigoto",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "19h00",
+          "display": "Arknights",
+          "title": "Arknights: Enshin Shomei",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "19h30",
+          "display": "Betrothed to My Sister's Ex",
+          "title": "Zutaboro Reijou wa Ane no Moto Konyakusha ni Dekiai Sareru",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": true
+        }
+      ],
+      "Samedi": [
+        {
+          "time": "05h00",
+          "display": "Lord of Misteries",
+          "title": "Guimi Zhi Zhu",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "12h00",
+          "display": "YAIBA: Samurai Legend",
+          "title": "Shin Samurai-den YAIBA",
+          "plateform": "ADN",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "17h30",
+          "display": "Tougen Anki",
+          "title": "Tougen Anki",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "15h15",
+          "display": "Anne Shirley",
+          "title": "Anne Shirley",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "16h30",
+          "display": "Fermat Kitchen",
+          "title": "Fermat no Ryouri",
+          "plateform": "ADN",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h00",
+          "display": "The Shy Hero and the Assassin Princesses",
+          "title": "Kizetsu Yuusha to Ansatsu Hime",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h30",
+          "display": "Scooped Up by an S-Rank Adventurer!",
+          "title": "Yuusha Party wo Tsuihou Sareta Shiro Madoushi, S Rank Boukensha ni Hirowareru: Kono Shiro Madoushi ga Kikakugaisugiru",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h30",
+          "display": "Bad Girl",
+          "title": "Bad Girl",
+          "plateform": "ADN",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "18h00",
+          "display": "Rascal Does Not Dream of Santa Claus",
+          "title": "Seishun Buta Yarou wa Santa Claus no Yume wo Minai",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "18h30",
+          "display": "My Dress-Up Darling",
+          "title": "Sono Bisque Doll wa Koi wo Suru Season 2",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": false
+        },
+        {
+          "time": "19h00",
+          "display": "Private Tutor to the Duke's Daughter",
+          "title": "Koujo Denka no Katei Kyoushi",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "20h00",
+          "display": "With You and the Rain",
+          "title": "Ame to Kimi to",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        }
+      ],
+      "Dimanche": [
+        {
+          "time": "00h00",
+          "display": "Bloom",
+          "title": "Kaoru Hana wa Rin to Saku",
+          "plateform": "Netflix",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "02h30",
+          "display": "To Be Hero X",
+          "title": " Tu Bian Yingxiong X",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "10h30",
+          "display": "Witch Watch",
+          "title": "Witch Watch",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "11h00",
+          "display": "Toilet-Bound Hanako-kun",
+          "title": "Jibaku Shounen Hanako-kun 2 Part 2",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": false
+        },
+        {
+          "time": "15h15",
+          "display": "Dekin no Mogura",
+          "title": "Dekin no Mogura",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "15h30",
+          "display": "Ruri Rocks",
+          "title": "Ruri no Houseki",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "15h45",
+          "display": "Apocalypse Bringer Mynoghra",
+          "title": "Isekai Mokushiroku Mynoghra: Hametsu no Bunmei de Hajimeru Sekai Seifuku",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "16h15",
+          "display": "Nyaight of the Living Cat",
+          "title": "Nyaight of the Living Cat",
+          "plateform": "Crunchyroll",
+          "viewing": false,
+          "new": true
+        },
+        {
+          "time": "16h45",
+          "display": "GaCen Girl",
+          "title": "GaCen Shoujo to Ibunka Kouryuu",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h00",
+          "display": "Gachiakuta",
+          "title": "Gachiakuta",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h30",
+          "display": "Uglymug, Epicfighter",
+          "title": "Busamen Gachi Fighter",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "17h30",
+          "display": "CITY THE ANIMATION",
+          "title": "CITY THE ANIMATION",
+          "plateform": "Amazon Prime",
+          "viewing": true,
+          "new": true
+        },
+        {
+          "time": "18h30",
+          "display": "Hotel Inhumans",
+          "title": "Hotel Inhumans",
+          "plateform": "Crunchyroll",
+          "viewing": true,
+          "new": true
+        }
+      ]
+    };
+
+    function renderSchedule(data) {
+      const container = document.getElementById('schedule');
+      container.innerHTML = '';
+      // Calculate total viewing
+      let totalViewing = 0;
+      let totalShows = 0;
+      Object.values(data).forEach(shows => {
+        totalViewing += shows.filter(show => show.viewing).length;
+        totalShows += shows.length;
+      });
+      const totalViewingDiv = document.getElementById('total-viewing');
+      totalViewingDiv.textContent = `Total viewing: ${totalViewing} / ${totalShows}`;
+      // Attach reset button handler
+      const resetBtn = document.getElementById('reset-viewing');
+      if (resetBtn) {
+        resetBtn.onclick = function() {
+          Object.values(data).forEach(shows => {
+            shows.forEach(show => { show.viewing = false; });
+          });
+          renderSchedule(data);
+        };
+      }
+      // Detect current day in French
+      const daysFr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+      const todayIdx = new Date().getDay();
+      const todayFr = daysFr[todayIdx];
+      Object.entries(data).forEach(([day, shows]) => {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day' + (day === todayFr ? ' day-current' : '');
+        // Counter: viewing / total
+        const viewingCount = shows.filter(show => show.viewing).length;
+        const totalCount = shows.length;
+        dayDiv.innerHTML = `<h2 style='display:flex; align-items:center; justify-content:space-between;'><span>${day}</span><span style='font-size:0.85em; font-weight:normal; color:#888; margin-left:0.5em;'>${viewingCount} / ${totalCount}</span></h2>`;
+        const ul = document.createElement('ul');
+      shows.forEach((show, idx) => {
+        let pf = (show.plateform || '').toLowerCase().replace(/\s+/g, '');
+        // Use pf-dot and pf-{platform} directly, fallback to pf-default if not defined
+        let pfDotClass = 'pf-dot pf-' + (pf || 'default');
+        const li = document.createElement('li');
+        let displayName = show.display || show.title;
+        // Add not-viewing class if viewing is false
+        if (show.viewing === false) {
+          li.classList.add('not-viewing');
+        }
+        // Add not-new-title class if new is false
+        let animeNameClass = 'anime-name';
+        if (show.new === false) {
+          animeNameClass += ' not-new-title';
+        }
+        li.innerHTML = `<span class=\"hour-dot-wrap\"><span class=\"time\">${show.time}</span><span class='${pfDotClass}' title='${show.plateform || ''}'></span></span><span class=\"${animeNameClass}\"><span class='anime-display'>${displayName}</span><span class='anime-full'>${show.title}</span></span>`;
+        // Make the whole box clickable to toggle viewing
+        li.style.cursor = 'pointer';
+        li.title = 'Toggle viewing';
+        li.addEventListener('click', function() {
+          show.viewing = !show.viewing;
+          renderSchedule(data);
+        });
+        ul.appendChild(li);
+      });
+        dayDiv.appendChild(ul);
+        container.appendChild(dayDiv);
+      });
+    }
+
+    // Initial render
+    renderSchedule(scheduleData);
+  </script>
+</body>
+</html>
